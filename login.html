@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Acesse sua conta YourPag e gerencie seus pagamentos PIX.">
+  <meta name="theme-color" content="#0B0B10">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237B61FF'/%3E%3Ctext x='50' y='68' font-family='system-ui' font-size='50' font-weight='bold' fill='white' text-anchor='middle'%3EY%3C/text%3E%3C/svg%3E" />
+  <title>Login - YourPag</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: #0a0a0f;
+      color: #fafafa;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .auth-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .auth-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: #0d0d14;
+      padding: 3rem 2rem;
+    }
+
+    .auth-left::before {
+      content: '';
+      position: absolute;
+      bottom: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.08) 40%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .auth-left::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3), rgba(139,92,246,0.3), transparent);
+    }
+
+    .left-content {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand-logo {
+      height: 32px;
+      margin-bottom: 2.5rem;
+    }
+
+    .brand-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: white;
+      box-shadow: 0 8px 32px rgba(99,102,241,0.3);
+    }
+
+    .left-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .left-title-gradient {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-size: 1.75rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .left-subtitle {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .auth-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      background: #0a0a0f;
+    }
+
+    .form-container {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .form-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .form-subtitle {
+      text-align: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.875rem;
+      margin-bottom: 2rem;
+    }
+
+    .field-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .field-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .field-icon {
+      position: absolute;
+      left: 14px;
+      width: 18px;
+      height: 18px;
+      color: rgba(255,255,255,0.3);
+      pointer-events: none;
+    }
+
+    .field-input {
+      width: 100%;
+      padding: 0.75rem 0.875rem 0.75rem 2.75rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      color: #fafafa;
+      font-size: 0.875rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .field-input::placeholder {
+      color: rgba(255,255,255,0.25);
+    }
+
+    .field-input:focus {
+      border-color: rgba(139,92,246,0.5);
+      box-shadow: 0 0 0 3px rgba(139,92,246,0.1);
+    }
+
+    .field-toggle {
+      position: absolute;
+      right: 14px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.3);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+
+    .field-toggle:hover {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .remember-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+    }
+
+    .remember-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+    }
+
+    .remember-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #6366f1;
+      cursor: pointer;
+    }
+
+    .forgot-link {
+      color: #8b5cf6;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.8125rem;
+      transition: color 0.2s;
+    }
+
+    .forgot-link:hover {
+      color: #a78bfa;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 0.875rem;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 24px rgba(99,102,241,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.4);
+      filter: brightness(1.1);
+    }
+
+    .form-link-row {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .form-link-row a {
+      color: #8b5cf6;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .form-link-row a:hover {
+      color: #a78bfa;
+    }
+
+    .form-legal {
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+      margin-top: 1.25rem;
+      line-height: 1.5;
+    }
+
+    .form-legal a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .form-legal a:hover {
+      color: rgba(255,255,255,0.7);
+    }
+
+    @media (max-width: 768px) {
+      .auth-container {
+        flex-direction: column;
+      }
+
+      .auth-left {
+        padding: 2rem 1.5rem 2.5rem;
+        min-height: auto;
+      }
+
+      .brand-logo {
+        height: 28px;
+        margin-bottom: 1.5rem;
+      }
+
+      .brand-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .left-title, .left-title-gradient {
+        font-size: 1.375rem;
+      }
+
+      .left-subtitle {
+        font-size: 0.8125rem;
+      }
+
+      .auth-right {
+        padding: 2rem 1.5rem 3rem;
+      }
+
+      .form-title {
+        font-size: 1.25rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .auth-left {
+        padding: 1.5rem 1rem 2rem;
+      }
+
+      .auth-right {
+        padding: 1.5rem 1rem 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-left">
+      <div class="left-content">
+        <img src="./yourpag-logo-branco.png" alt="YourPag" class="brand-logo">
+        <div class="left-title">Bem-vindo à sua</div>
+        <span class="left-title-gradient">Área de Pagamentos</span>
+        <p class="left-subtitle">Acesse seu painel e gerencie seus pagamentos PIX com segurança e praticidade.</p>
+      </div>
+    </div>
+
+    <div class="auth-right">
+      <div class="form-container">
+        <h1 class="form-title">Entrar na sua conta</h1>
+        <p class="form-subtitle">Acesse com seu email e senha cadastrados</p>
+
+        <form id="loginForm" onsubmit="return false;">
+          <div class="field-group">
+            <label class="field-label" for="email">Email</label>
+            <div class="field-input-wrapper">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <input class="field-input" type="email" id="email" placeholder="seu@email.com" autocomplete="email">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="password">Senha</label>
+            <div class="field-input-wrapper">
+              <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <input class="field-input" type="password" id="password" placeholder="••••••••" autocomplete="current-password" style="padding-right: 3rem;">
+              <button type="button" class="field-toggle" onclick="togglePassword(this)" aria-label="Mostrar senha">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="remember-row">
+            <label class="remember-label">
+              <input type="checkbox" id="remember"> Lembrar de mim
+            </label>
+            <a href="#" class="forgot-link">Esqueci a senha</a>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            Entrar
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+
+          <div class="form-link-row">
+            Primeiro acesso? <a href="./cadastro.html">Ative sua conta aqui</a>
+          </div>
+
+          <p class="form-legal">
+            Ao acessar, você concorda com nossos <a href="./termos.html">Termos de Uso</a> e <a href="./privacidade.html">Política de Privacidade</a>.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword(btn) {
+      const input = btn.parentElement.querySelector('input');
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>';
+      } else {
+        input.type = 'password';
+        btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
+      }
+    }
+  </script>
+</body>
+</html>
